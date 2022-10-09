@@ -1,0 +1,23 @@
+class Solution {
+public:
+    int scoreOfParentheses(string s) {                        
+		int l=s.size(),n=0,ans=0;                    // l 长度    n 倍数    ans 分数
+		for(  int i=0 ; i < l ; i++ )                	//遍历
+		{
+			if ( s[i] == '(' )				    		//左括号倍数加1，右括号减一，若匹配括号那么分数加上当前倍数  ，倍数采用位运算
+			{
+				n++;
+			}
+			else
+			{
+				n--;
+				if ( s[i-1] == '(' )
+				{ 
+					ans+=1<<n;
+				}
+			}
+}
+return ans;	
+
+    }
+};
