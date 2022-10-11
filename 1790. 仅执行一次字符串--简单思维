@@ -1,0 +1,23 @@
+// C
+bool areAlmostEqual(char * s1, char * s2){
+    int l=strlen(s1);
+    int n=0;
+    char a,b;
+    for(int i=0;i<l;i++)                           //遍历数组
+    {
+        if(s1[i]!=s2[i])                           //发现不同第一次记录双方值，第二次对比是否能够互换，第三次不同n>2必定false 
+        {
+            if(n==0)
+            { 
+                a=s1[i];
+                b=s2[i]; 
+            }
+            else if( b!=s1[i] ||a!=s2[i])
+            {
+                return false;
+            }
+            n++;
+        }
+    }
+    return (n==2 || n==0) ? true  : false ;
+}
