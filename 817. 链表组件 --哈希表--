@@ -1,0 +1,29 @@
+ /**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    int numComponents(ListNode* head, vector<int>& nums) {
+        unordered_set<int> nset;            // 定义一个数组，用作哈希表，
+    for(int n : nums )   nset.emplace(n) ;   ////将nums 数组内容放入数组，这里用迭代器迭代，emplace入列函数，看样子应该自动识别迭代器对象
+    bool iset =false ;                // iset 记录组件状态 ，false 为断开 true 为连接
+    int res = 0;                      //断开时在哈希表nset中找到元素那么转换为 true ，并且答案 res 加以
+    while(head!=nullptr)
+    {
+        if(nset.count(head->val)) {
+            if(!iset) { iset=true; res++; }     //搜到组件，状态转化，答案加一
+        }
+        else
+            iset=false;                         //组件断开
+     head = head -> next;                 
+    }
+    return res;
+    }
+};
