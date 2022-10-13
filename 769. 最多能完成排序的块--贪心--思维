@@ -1,0 +1,15 @@
+class Solution {
+public:
+    int maxChunksToSorted(vector<int>& arr) {
+        int n=arr.size(),maxx=0,ans=0;                 // 需要三个变量  n 数组长度  右移最大值 maxx   和 答案 ans 最大可分块数
+        for( int i=0 ; i <n ; i++ )                    
+        {                                                 // 每次更行当前段最大位移值，最大位移值等于当前指针时当前段仅有小于等于产生最大位移值的值的元素。那么此时可以分段。
+            maxx = (arr[i]>=maxx) ? arr[i] : maxx;
+            if( maxx == i )
+            {
+               ans++;
+             }
+        }
+        return ans;
+    }
+};
