@@ -1,0 +1,22 @@
+class Solution {
+public:
+    static const int N =  2005;
+    int p[2 * N];
+    int find (int x) {
+        if (p[x] != x) p[x] = find (p[x]);
+        return p[x];
+    }
+
+    bool possibleBipartition(int n, vector<vector<int>>& dislikes) {
+        for (int i = 1; i < 2 * N; i ++ ) p[i] = i;
+        for (auto d : dislikes) {
+            int a = d[0], b = d[1];
+            if (find (a) == find(b)) return false;
+            else {
+                p[find (a)] = find (b + n);
+                p[find (b)] = find (a + n);
+            }
+        }    
+        return true;
+    }
+};
