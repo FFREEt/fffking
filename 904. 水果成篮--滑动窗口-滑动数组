@@ -1,0 +1,42 @@
+class Solution {
+public:
+    int totalFruit(vector<int>& fruits) {
+    int l[2][2],mx=0,m=1,n=fruits.size();
+    int t=sizeof(l);
+    memset(l,-1,t);
+    l[0][1]=l[1][1]=0;
+    int k=0,kk=-1;
+    for(int i=0; i<n;i++)
+    {
+        if(kk!=fruits[i])                             //但遇到与上一个不同元素
+        {
+            if(l[0][0]==kk)  m=1;                     //重置抛弃元素为非上一个元素
+            else m=0;
+            kk=fruits[i];                             //重置上一个元素的 id
+            if(fruits[i]!=l[0][0]&&fruits[i]!=l[1][0]){            //若为新的元素，将对应标记的元素抛弃并置为一，另个一累计值置为前置长度
+            l[m][0]=fruits[i];
+            l[m][1]=1;
+                if(i!=0) { l[(m+1)%2][1]=k;}
+            }   
+            else                                        //若不是新元素那么相应的元素数量加一
+            {
+            //k++;
+                if(fruits[i]==l[0][0])
+                   l[0][1]++;
+                else
+                    l[1][1]++;
+            }
+            k=0;                                        //碰到新元素前置元素长度置零
+        }
+          else                                          //不是新元素直接相应元素加一
+        {
+        if(fruits[i]==l[0][0])
+            l[0][1]++;
+        else
+            l[1][1]++;
+        }
+        k++;                                            //每次遍历前置长度+1  并且重置最大值
+        mx=mx<(l[0][1]+l[1][1])?(l[0][1]+l[1][1]):mx;
+    }
+    return mx;
+    }
