@@ -1,0 +1,43 @@
+class Solution {
+public:
+    int longestValidParentheses(string s) {
+        int n=s.length();
+        int z[n+1],lz=1,m[n+1];
+         memset(m,0,sizeof(m));
+        z[0]=0;
+        for(int i=1 ;i < n ; i++)
+        {
+           if(lz>0&&s[i]==')'&&s[z[lz-1]]=='(')
+            // if(1)
+           {    
+               s[i]='!';
+               s[z[lz-1]]='!';
+                // m[i]=1;
+                // m[i]=1;
+                lz--;
+           }
+           else
+           {
+               z[lz]=i;
+               lz++;
+           }
+        }
+        int mx=0;
+        lz=0;
+        for(int i=0;  i < n ; i++)
+        {
+            if(s[i]=='!')  lz++;
+            else {
+                mx=mx<lz?lz:mx;
+                lz=0;
+            }
+            // if(m[i]==1) lz++;
+            // else{
+            //     mx=mx<lz?lz:mx;
+            //     lz++;
+            // }
+        }
+        mx=mx<lz?lz:mx;
+        return mx;
+    }
+};
