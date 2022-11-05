@@ -1,0 +1,72 @@
+class Solution {
+public:
+
+
+    void jud(stack<char> & sta,char t)              //当遇到左括号时调用，对右括号之前的元素进行运算，并抛弃右括号，
+    {
+        // char j[2]=['f'.'t'];
+        if(t=='!')
+        {
+            char j=sta.top();
+            for(int i=0;i<2;i++)   sta.pop();
+            sta.push(j=='t'?'f':'t');
+            return ;
+        }
+        char c=(t=='&'?'t':'f');
+        while(sta.top()!=')')
+        {
+            if(t=='&')
+            {
+                if(sta.top()=='f')
+                {
+                    c='f';
+                    break;
+                }
+                else
+                {
+                    sta.pop();
+                }
+            }
+            else{
+                if(sta.top()=='t')
+                {
+                    c='t';
+                    break;
+                }
+                else{
+                    sta.pop();
+                }
+            }
+        }
+        while(sta.top()!=')')
+        {
+            sta.pop();
+        }
+        sta.pop();              //抛弃右括号
+        sta.push(c);
+    }
+    bool parseBoolExpr(string expression) {
+        int n=expression.size();
+        stack<char> sta;
+        for(int i=n-1;i>=0;i--)
+        {
+            if(expression[i]!='(')
+            {
+                sta.push(expression[i]);
+            }
+            else
+            {
+                i--;
+                jud(sta,expression[i]);
+            }
+        }
+        return sta.top()=='t';
+
+
+
+// sta.push('char');入栈
+// sta.pop();     出栈；
+// sta.top();      返回值为栈顶；
+
+    }
+};
