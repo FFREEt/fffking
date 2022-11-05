@@ -1,0 +1,34 @@
+class Solution {
+public:
+    
+    vector<int> bestCoordinate(vector<vector<int>>& towers, int radius) {
+        int xmax=0,ymax=0,n=towers.size();
+        for(int i=0;i<n;i++)
+        {
+            ymax=ymax>towers[i][0]?ymax:towers[i][0];
+            xmax=xmax>towers[i][1]?xmax:towers[i][1];
+        }
+        // printf("xmax:%d ymax:%d\n",xmax,ymax);
+        int l[55][55];
+        memset(l,0,sizeof(l));
+        for( int i=ymax ;i>=0 ; i--)
+        for( int j=xmax ;j>=0 ; j--)
+        {
+            for(int k=0;k<n;k++)
+            {
+                double d=sqrt(pow(abs(i-towers[k][0]),2)+pow(abs(j-towers[k][1]),2));
+                if(d<=radius)
+                    l[i][j]+=(double)towers[k][2]/(1+d);
+            }
+        }
+        int mmax=INT_MIN;
+        int yxmax=INT_MIN,xxmax=INT_MIN;
+        for( int i=ymax ;i>=0 ; i--)
+        for( int j=xmax ;j>=0 ; j--)
+        {
+            // if(i==47)printf("y:%d x:%d val:%d\n",i,j,l[i][j]);
+            if(l[i][j]>=mmax)   { mmax=l[i][j];    yxmax=i,xxmax=j;}
+        }
+        return {yxmax,xxmax};
+    }
+};
