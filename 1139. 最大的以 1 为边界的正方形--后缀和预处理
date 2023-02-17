@@ -1,0 +1,32 @@
+class Solution {
+public:
+    int largest1BorderedSquare(vector<vector<int>> &grid) {
+        int y=grid.size(),x=grid[0].size();
+        vector<vector<int>>  rs(y+1, vector<int>(x+1,0)) , ss(y+1, vector<int>(x+1,0)) ;    //rs 水平方后缀和   ss 竖直方向
+        for(int ym=0 ; ym<y ; ym++)                                                         //后缀和数组处理的时候 向后置一位 第一位置零方便运算
+        for(int xm=0 ; xm<x ; xm++)
+        {
+            rs[ym+1][xm+1]+=grid[ym][xm] + rs[ym+1][xm];                      //当前后缀和等于上一个后缀和加当前值
+            ss[ym+1][xm+1]+=grid[ym][xm] + ss[ym][xm+1];
+        }
+        // for(int ym=0 ; ym<y ; ym++)
+        // {
+        // for(int xm=0 ; xm<x ; xm++)
+        // {
+        //     cout<<rs[ym+1][xm+1]<<"  ";
+        // }
+        // cout<<endl;
+        // }
+        for(int d=min(x,y);d>0 ; d--)                                       //遍历可能的 边长 ， 因为边长与
+        for(int ym=0 ; ym<=y-d ; ym++)
+        for(int xm=0 ; xm<=x-d ; xm++)
+        {
+            if( rs[ym+1][xm+d]-rs[ym+1][xm] == d &&
+                ss[ym+d][xm+1]-ss[ym][xm+1] == d &&
+                rs[ym+d][xm+d]-rs[ym+d][xm] == d &&
+                ss[ym+d][xm+d]-ss[ym][xm+d] == d)
+                return d*d;
+        }
+        return 0;
+    }
+};
