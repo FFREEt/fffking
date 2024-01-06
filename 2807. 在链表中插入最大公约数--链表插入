@@ -1,0 +1,33 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;              节点值
+ *     ListNode *next;       下一个指针   这里的* 可以跟在变量类型后面，也可以跟在名称前面，仅代表指针，变量名不带*
+ *     ListNode() : val(0), next(nullptr) {}     
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* insertGreatestCommonDivisors(ListNode* head) {
+        ListNode* yyh = head;
+        while(yyh->next)
+        {
+            ListNode* insert = new ListNode(gcd(yyh->val,yyh->next->val),yyh->next);  
+            //创建节点 注意要使用 new 方法 ，否则为局部变量
+            yyh->next = insert ; // 替换下一个
+            yyh = insert->next;  //循环
+        }
+        return head;
+    }
+};
+
+
+/* --------------算法-----------
+辗转相除法： 两数取余，余数为下一次除数，除数为下一次被除数，直到余数为零 则为最大公因数
+            证：最后余数为零，该除数为上一次余数，即上一次除数可被余数整除，即可得被除数也可被该余数整除。
+            即得其为因数之一。   是否为最大暂不证
+
+欧几里得： 基本同上，不过使用递归
+*/
