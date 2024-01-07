@@ -1,0 +1,23 @@
+class Solution {
+public:
+    bool canConstruct(string ransomNote, string magazine) {
+        if( ransomNote.size() > magazine.size() ){   // 长度不够元素必然不够
+            return false;
+        }
+        int l[26] = {} ;          // 这里不用vetor了
+        int siz = magazine.size();   // 获取长度 统计字符数    
+        for(int i=0 ; i<siz ; i++){
+            l[magazine[i] - 'a']++;
+        }
+        siz = ransomNote.size();   // 减掉需要的字符
+        for( int i = 0 ; i<siz ; i++)
+        {
+            l[ransomNote[i] - 'a' ]--;
+            if(l[ransomNote[i] - 'a' ] == -1 )   // 当出现负数即元素不足
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+};
