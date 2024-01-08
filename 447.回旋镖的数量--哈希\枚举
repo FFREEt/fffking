@@ -1,0 +1,23 @@
+class Solution {
+public:
+    int numberOfBoomerangs(vector<vector<int>>& points) {
+        int ans =0 ;
+         for (auto& p1 : points) {
+            unordered_map<int, int> dist_count;
+            for (auto& p2 : points) {
+                if (&p1 != &p2) { // 避免与自身比较
+                    int dx = p1[0] - p2[0];
+                    int dy = p1[1] - p2[1];
+                    int dist = dx * dx + dy * dy; // 使用平方距离简化计算
+                    dist_count[dist]++;
+                }
+            }
+            for (auto& count : dist_count) {
+                if (count.second > 1) { // 至少有两个点与 p1 的距离相等
+                    ans += count.second * (count.second - 1); // 每种距离组合两次，所以是 n*(n-1)
+                }
+            }
+        }
+        return ans;
+    }
+};
