@@ -1,0 +1,30 @@
+class Solution {
+public:
+    int minLength(string s) {
+        stack<char> st;    //stack 栈
+        for(auto& ch: s){
+            if(ch == 'D' && st.size()){ 
+                if(st.top() == 'C'){
+                    st.pop();
+                }
+                else{
+                    st.push('D');
+                }
+            }
+            else if(ch == 'B' && st.size()){
+                if(st.top() == 'A'){
+                    st.pop();
+                }
+                else{
+                    st.push('B');
+                }
+            }
+            else{
+                st.push(ch);
+            }
+        }
+        return st.size();
+    }
+};
+
+//这段代码是力扣提供的0ms的例子，复制运行两次结果分别为0和8ms.可见没有数量级性能差距的跑分是会出现看起来比较夸张的误差的
