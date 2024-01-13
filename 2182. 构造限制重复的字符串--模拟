@@ -1,0 +1,41 @@
+class Solution {
+public:
+    string repeatLimitedString(string s, int repeatLimit) {
+        vector<int> l(26);
+        int siz=s.size();
+        for(int i=0; i<siz; i++)     // 将字符放入桶中
+            l[ (s[i]-'a') ]+=1;
+        string ans;
+        int n=25;               // n当前剩余最大字符标记 mark为顶端重复数，每当输出次级字符时重置
+        int mark=0,marksec=24;
+        for(int i=0; i<siz; i++)
+        {
+            if(l[n]){                //当前字符存在
+                if(mark<repeatLimit){   //并且重复次数合法
+                    ans.push_back(n+'a');
+                    l[n]--;
+                    mark++;
+                }
+                else 
+                    if(n>0)      // 这里实际上没有作用
+                        for(int j=n-1;1;j--){  //重复次数达到最大，向后搜寻可输出字符
+                            if(l[j]){
+                                ans.push_back(j+'a');
+                                l[j]--;
+                                mark=0;   //重置重复数
+                                break;
+                            }
+                            if(j==0)
+                            return ans;
+                        }
+            }
+            else{   //不存在向小迭代
+                n--;
+                mark=0;
+                i--;
+            }
+        }
+        return ans;
+    }
+};
+/* -----------------------要耐心            */
