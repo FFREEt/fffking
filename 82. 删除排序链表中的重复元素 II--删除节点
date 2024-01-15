@@ -1,0 +1,26 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* deleteDuplicates(ListNode* head) {
+         ListNode *dummy = new ListNode(0, head), *cur = dummy;  //需要删除当前节点的话申请一个前置会舒服很多
+        while(cur->next && cur->next->next){
+            int val = cur->next->val ; 
+            if( val == cur->next->next->val ){
+                while (cur->next&&cur->next->val == val)  //注意这里要判断当前比较节点是否合法，第一次提交第五个[1,1]直接寄了
+                    cur->next = cur->next->next;
+            }
+            else
+                cur=cur->next;
+        }
+        return dummy->next;
+    }
+};
