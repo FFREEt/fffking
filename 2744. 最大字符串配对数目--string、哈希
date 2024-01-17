@@ -1,0 +1,20 @@
+class Solution {
+public:
+    int maximumNumberOfStringPairs(vector<string>& words) {
+        unordered_set<string> mp(words.begin(),words.end());
+        int ans=0;
+        string s(2,'6');      //构造自定义长度只能这么构造
+        for(auto p:mp){
+            if(p[0]!=p[1]){
+                s[0]=p[1]; 
+                s[1]=p[0];
+                ans+=mp.count(s);
+                cout<<s;
+            }
+            else{
+                continue;
+            }
+        }
+        return  ans/2;
+    }
+};
